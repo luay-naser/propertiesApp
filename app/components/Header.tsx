@@ -38,7 +38,7 @@ return (
         setIsActive(!isAcitve)
       }}/>
     </nav>
-    <div className={ `transition duration-300 ${isAcitve?"inline-block":"hidden"} w-full h-50 bg-white  fixed top-18 left-0` }>
+    <div className={ `transition duration-300 ${isAcitve?"inline-block":"hidden"} w-full h-50 bg-white  sm:hidden fixed top-18 left-0` }>
 <ul className="flex flex-col gap-4 border-b-1 border-gray-500/50 px-4 py-2">
   {navList}
         <Link href={"#"}>
