@@ -18,7 +18,7 @@ export default function Footer() {
       <p className="text-gray-500 text-md">شريكك الموثوق في العثور على العقار المثالي للإيجار أو البيع.</p>
         </div>
         <div>
-            <h3>روابط سريعة</h3>
+            <h3 className="font-bold text-gray-800">روابط سريعة</h3>
             <ul className="text-gray-500 flex flex-col gap-3 mt-4">
                 <Link href={"#"}>
                     <li className="hover:text-[var(--primary-color)]">الرئيسية</li>
@@ -35,7 +35,7 @@ export default function Footer() {
             </ul>
         </div>
         <div>
-            <h3>أنواع العقارات </h3>
+            <h3 className="font-bold text-gray-800">أنواع العقارات </h3>
             <ul className="text-gray-500 flex flex-col gap-3 mt-4">
                 <Link href={"#"}>
                     <li className="hover:text-[var(--primary-color)]">شقق</li>
@@ -52,7 +52,7 @@ export default function Footer() {
             </ul>
         </div>
         <div>
-            <h3>اتصل بنا</h3>
+            <h3 className="font-bold text-gray-800">اتصل بنا</h3>
             <div className="flex items-center gap-3 mb-3 mt-4">
                 <span className="icon-envelope text-[var(--primary-color)]"/>
                 <p className="text-gray-500">loauy.n.9@gmail.com</p>
