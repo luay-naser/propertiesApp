@@ -1,11 +1,9 @@
-import Image from "next/image";
+import Hero from "./components/home/Hero";
 
 export default function Home() {
   return (
-    <div className="text-4xl">
-      <div className="mt-10 h-[400px]">
-         hello
-        </div>
-    </div>
+    <>
+    <Hero/>
+    </>
   )
 }
