@@ -20,7 +20,7 @@ export default function Hero() {
 
           <div className="w-full max-w-5xl mx-auto bg-white py-4 px-3 md:py-6 md:px-6 rounded-xl flex flex-col md:flex-row justify-between items-center gap-3 md:gap-4 shadow-lg">
             {/* زر البحث */}
-            <button className=" flex items-center gap-1 bg-[var(--primary-color)] text-white py-3 px-10 rounded-xl text-lg md:text-xl w-full md:w-auto">
+            <button className=" flex items-center gap-1 bg-primary text-white py-3 px-10 rounded-xl text-lg md:text-xl w-full md:w-auto">
               ابحث <span className="icon-search" />
             </button>
 
@@ -77,7 +77,7 @@ export default function Hero() {
           </div>
         </div>
       </div>
-      <div className="grid grid-cols-2 md:grid-cols-4 md-5 sm:pb-14 gap-3 md:gap-0 text-white w-full text-center px-[var(--container-padding)] mt-16">
+      <div className="grid grid-cols-2 md:grid-cols-4 md-5 sm:pb-14 gap-3 md:gap-0 text-white w-full text-center px-container mt-16">
         <div>
           <span className="text-5xl font-bold ">15</span>
           <p className="mt-2 text-white/80">سنوات الخبرة</p>

@@ -1,7 +1,11 @@
 @import "tailwindcss";
-:root{
+/* :root{
   --container-padding:20px;
   --primary-color: rgb(48, 48, 250);
+} */
+@theme {
+  --color-primary: #3040fa;
+  --spacing-container: 20px;
 }
 
 /* :root {
