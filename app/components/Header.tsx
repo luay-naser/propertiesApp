@@ -64,7 +64,7 @@ export default function Header() {
       .then(function (response) {
         // handle success
         console.log(response);
-        setSnackBarActive({ show: true, text: "لقد تم انشاء حسابك يا ابوشريك" });
+        setSnackBarActive({ show: true, text: "لقد تم انشاء حسابك بنجاح " });
         setTimeout(() => {
           setSnackBarActive({ show: false, text: "" });
         }, 2000);
