@@ -3,10 +3,15 @@ import axios from "axios";
 import Link from "next/link";
 import { useState } from "react";
 import React from "react";
+import SnackBar from "./SnackBar";
 
 export default function Header() {
   const [isActive, setIsActive] = useState(false);
   const [showForm, setShowForm] = useState(false);
+  const [snackBarActive, setSnackBarActive] = useState({
+    show: false,
+    text: "",
+  });
   const [user, setUser] = useState({ email: "", password: "" });
   const [newUser, setNewUser] = useState({
     first: "",
@@ -36,32 +41,74 @@ export default function Header() {
     email: string;
     password: string;
   }
-  const userForm:formType = {
-          "first_name": newUser.first,
-          "last_name": newUser.last,
-          "city": newUser.city,
-          "phone": newUser.phone,
-          "email": newUser.email,
-          "password": newUser.password,
-        }
+  const userForm: formType = {
+    first_name: newUser.first,
+    last_name: newUser.last,
+    city: newUser.city,
+    phone: newUser.phone,
+    email: newUser.email,
+    password: newUser.password,
+  };
   function userHandle() {
-    return (axios.post(
+    return axios
+      .post(
         "https://lola-uncompressible-kailee.ngrok-free.dev/users_api/register.php",
 
-        userForm, {
-  headers: {
-    "Content-Type": "application/json",
-  },
-}
+        userForm,
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
       )
       .then(function (response) {
         // handle success
         console.log(response);
+        setSnackBarActive({ show: true, text: "لقد تم انشاء حسابك يا ابوشريك" });
+        setTimeout(() => {
+          setSnackBarActive({ show: false, text: "" });
+        }, 2000);
+        setShowForm(false);
       })
       .catch(function (error) {
         // handle error
         console.log(error);
-      }));
+      });
+  }
+  // login logic
+  interface loginType {
+    email: string;
+    password: string;
+  }
+  const loginForm: loginType = {
+    email: user.email,
+    password: user.password,
+  };
+  function loginHandle() {
+    return axios
+      .post(
+        "https://lola-uncompressible-kailee.ngrok-free.dev/users_api/login.php",
+
+        loginForm,
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      )
+      .then(function (response) {
+        // handle success
+        console.log(response);
+        setSnackBarActive({ show: true, text: "تم تسجيل الدخول بنجاح" });
+        setTimeout(() => {
+          setSnackBarActive({ show: false, text: "" });
+        }, 2000);
+        setShowForm(false);
+      })
+      .catch(function (error) {
+        // handle error
+        console.log(error);
+      });
   }
 
   const navList = list.map((inet: navItem) => (
@@ -90,6 +137,7 @@ export default function Header() {
 
   return (
     <>
+      {snackBarActive.show && <SnackBar text={snackBarActive.text} />}
       <header className="fixed top-0 backdrop-blur-sm bg-white/80 px-container shadow-md flex justify-between w-full z-30">
         <nav className="py-4 flex justify-between items-center w-full">
           <Link href={"/"}>
@@ -141,7 +189,7 @@ export default function Header() {
             </Link>
             <button
               onClick={() => setShowForm(true)}
-              className="bg-gray-900 px-4 py-2 rounded-lg text-white font-bold hover:bg-primary transition duration-300"
+              className="bg-gray-900 px-4 py-2 cursor-pointer rounded-lg text-white font-bold hover:bg-primary transition duration-300"
             >
               حسابي
             </button>
@@ -162,6 +210,7 @@ export default function Header() {
             <h2 className="text-2xl font-bold text-center mb-4 text-primary">
               إنشاء حساب / تسجيل دخول
             </h2>
+
             {/* login form */}
             {!isUser && (
               <form className="flex flex-col gap-4">
@@ -183,10 +232,15 @@ export default function Header() {
                 />
                 <button
                   type="submit"
-                  className="bg-primary text-white py-2 rounded-lg font-bold hover:bg-gray-900 transition duration-300"
+                  className="bg-primary cursor-pointer text-white py-2 rounded-lg font-bold hover:bg-gray-900 transition duration-300"
+                  onClick={(e) => {
+                    loginHandle();
+                    e.preventDefault();
+                  }}
                 >
                   تسجيل الدخول
                 </button>
+
                 <p className="text-center text-gray-600 text-sm">
                   لا تملك حسابًا؟{" "}
                   <a
@@ -255,10 +309,10 @@ export default function Header() {
                 />
                 <button
                   type="submit"
-                  className="bg-primary text-white py-2 rounded-lg font-bold hover:bg-gray-900 transition duration-300"
-                  onClick={(e)=>{
-                    userHandle()
-                    e.preventDefault(); 
+                  className="bg-primary cursor-pointer text-white py-2 rounded-lg font-bold hover:bg-gray-900 transition duration-300"
+                  onClick={(e) => {
+                    userHandle();
+                    e.preventDefault();
                   }}
                 >
                   انشاء حساب
