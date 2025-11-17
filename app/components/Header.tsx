@@ -102,8 +102,8 @@ export default function Header() {
         setSnackBarActive({ show: true, text: "تم تسجيل الدخول بنجاح" });
         setTimeout(() => {
           setSnackBarActive({ show: false, text: "" });
+          setShowForm(false);
         }, 2000);
-        setShowForm(false);
       })
       .catch(function (error) {
         // handle error
