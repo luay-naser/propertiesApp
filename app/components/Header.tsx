@@ -5,6 +5,7 @@ import { useState } from "react";
 import React from "react";
 import SnackBar from "./SnackBar";
 import { loginAxios, registerAxios } from "./AuthForm/AxiosLogic";
+import LoginForm from "./AuthForm/LoginForm";
 
 export default function Header() {
   const [isActive, setIsActive] = useState(false);
@@ -13,6 +14,7 @@ export default function Header() {
     show: false,
     text: "",
   });
+
   const [user, setUser] = useState({ email: "", password: "" });
   const [newUser, setNewUser] = useState({
     first: "",
@@ -52,7 +54,6 @@ export default function Header() {
   };
   async function userHandle() {
     try {
-      registerAxios(userForm);
       const response = await registerAxios(userForm);
       console.log(response);
       setSnackBarActive({ show: true, text: "لقد تم انشاء حسابك بنجاح " });
@@ -94,23 +95,6 @@ export default function Header() {
       </li>
     </Link>
   ));
-  // function usreHandle(){
-  //   axios.post('https://lola-uncompressible-kailee.ngrok-free.dev/users_api/users.php',
-  //     {
-  //       name: "luay ",
-  //       passowrd:"1547887997"
-  //     }
-  //   )
-  // .then(function (response) {
-  //   // handle success
-  //   console.log(response);
-  // })
-  // .catch(function (error) {
-  //   // handle error
-  //   console.log(error);
-  // })
-  // }
-
   return (
     <>
       {snackBarActive.show && <SnackBar text={snackBarActive.text} />}
@@ -189,47 +173,7 @@ export default function Header() {
 
             {/* login form */}
             {!isUser && (
-              <form className="flex flex-col gap-4">
-                <input
-                  type="email"
-                  placeholder="البريد الإلكتروني"
-                  className="border border-gray-300 rounded-lg px-3 py-2 focus:outline-primary"
-                  onChange={(e) => {
-                    setUser({ ...user, email: e.target.value });
-                  }}
-                />
-                <input
-                  type="password"
-                  placeholder="كلمة المرور"
-                  className="border border-gray-300 rounded-lg px-3 py-2 focus:outline-primary"
-                  onChange={(e) => {
-                    setUser({ ...user, password: e.target.value });
-                  }}
-                />
-                <button
-                  type="submit"
-                  className="bg-primary cursor-pointer text-white py-2 rounded-lg font-bold hover:bg-gray-900 transition duration-300"
-                  onClick={(e) => {
-                    loginHandle();
-                    e.preventDefault();
-                  }}
-                >
-                  تسجيل الدخول
-                </button>
-
-                <p className="text-center text-gray-600 text-sm">
-                  لا تملك حسابًا؟{" "}
-                  <a
-                    href="#"
-                    className="text-primary font-bold"
-                    onClick={() => {
-                      setIsUser(true);
-                    }}
-                  >
-                    أنشئ حسابًا
-                  </a>
-                </p>
-              </form>
+              <LoginForm setShowform= {setShowForm} setIsUser={setIsUser}/>
             )}
             {/* login form */}
             {/* register form */}
