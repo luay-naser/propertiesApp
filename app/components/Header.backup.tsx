@@ -4,7 +4,6 @@ import Link from "next/link";
 import { useState } from "react";
 import React from "react";
 import SnackBar from "./SnackBar";
-import { loginAxios, registerAxios } from "./AuthForm/AxiosLogic";
 
 export default function Header() {
   const [isActive, setIsActive] = useState(false);
@@ -50,19 +49,31 @@ export default function Header() {
     email: newUser.email,
     password: newUser.password,
   };
-  async function userHandle() {
-    try {
-      registerAxios(userForm);
-      const response = await registerAxios(userForm);
-      console.log(response);
-      setSnackBarActive({ show: true, text: "لقد تم انشاء حسابك بنجاح " });
-      setTimeout(() => {
-        setSnackBarActive({ show: false, text: "" });
-      }, 2000);
-      setShowForm(false);
-    } catch (error) {
-      console.log(error);
-    }
+  function userHandle() {
+    return axios
+      .post(
+        "https://lola-uncompressible-kailee.ngrok-free.dev/users_api/register.php",
+
+        userForm,
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      )
+      .then(function (response) {
+        // handle success
+        console.log(response);
+        setSnackBarActive({ show: true, text: "لقد تم انشاء حسابك بنجاح " });
+        setTimeout(() => {
+          setSnackBarActive({ show: false, text: "" });
+        }, 2000);
+        setShowForm(false);
+      })
+      .catch(function (error) {
+        // handle error
+        console.log(error);
+      });
   }
   // login logic
   interface loginType {
@@ -73,18 +84,31 @@ export default function Header() {
     email: user.email,
     password: user.password,
   };
-  async function loginHandle() {
-    try {
-      const response = await loginAxios(loginForm);
-      console.log(response);
-      setSnackBarActive({ show: true, text: "تم تسجيل الدخول بنجاح" });
-      setTimeout(() => {
-        setSnackBarActive({ show: false, text: "" });
-        setShowForm(false);
-      }, 2000);
-    } catch (error) {
-      console.log(error);
-    }
+  function loginHandle() {
+    return axios
+      .post(
+        "https://lola-uncompressible-kailee.ngrok-free.dev/users_api/login.php",
+
+        loginForm,
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      )
+      .then(function (response) {
+        // handle success
+        console.log(response);
+        setSnackBarActive({ show: true, text: "تم تسجيل الدخول بنجاح" });
+        setTimeout(() => {
+          setSnackBarActive({ show: false, text: "" });
+          setShowForm(false);
+        }, 2000);
+      })
+      .catch(function (error) {
+        // handle error
+        console.log(error);
+      });
   }
 
   const navList = list.map((inet: navItem) => (
