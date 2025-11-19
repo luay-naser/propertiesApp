@@ -115,7 +115,7 @@ export default function Header() {
             {/* login form */}
             {!isUser && (
               <LoginForm
-                setShowform={setShowForm}
+                setShowForm={setShowForm}
                 setIsUser={setIsUser}
                 setSnackBarActive={setSnackBarActive}
               />

@@ -2,11 +2,11 @@
 import { loginAxios } from "./AxiosLogic";
 import { useState } from "react";
 interface LoginFormProps {
-  setShowform: (value: boolean) => void;
+  setShowForm: (value: boolean) => void;
   setIsUser: (value: boolean) => void;
   setSnackBarActive:(value:{show:boolean; text:string})=>void;
 }
-export default function LoginForm({setShowform, setIsUser , setSnackBarActive}:LoginFormProps) {
+export default function LoginForm({setShowForm, setIsUser , setSnackBarActive}:LoginFormProps) {
   const [user, setUser] = useState({ email: "", password: "" });
 
   interface loginType {
@@ -24,7 +24,7 @@ export default function LoginForm({setShowform, setIsUser , setSnackBarActive}:L
       setSnackBarActive({ show: true, text: "تم تسجيل الدخول بنجاح" });
       setTimeout(() => {
         setSnackBarActive({ show: false, text: "" });
-        setShowform(false);
+        setShowForm(false);
       }, 2000);
     } catch (error) {
       console.log(error);
