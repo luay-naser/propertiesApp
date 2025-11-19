@@ -1,15 +1,14 @@
+"use client";
 import { loginAxios } from "./AxiosLogic";
 import { useState } from "react";
 interface LoginFormProps {
   setShowform: (value: boolean) => void;
   setIsUser: (value: boolean) => void;
+  setSnackBarActive:(value:{show:boolean; text:string})=>void;
 }
-export default function LoginForm({setShowform, setIsUser}:LoginFormProps) {
+export default function LoginForm({setShowform, setIsUser , setSnackBarActive}:LoginFormProps) {
   const [user, setUser] = useState({ email: "", password: "" });
-    const [snackBarActive, setSnackBarActive] = useState({
-      show: false,
-      text: "",
-    });
+
   interface loginType {
     email: string;
     password: string;
