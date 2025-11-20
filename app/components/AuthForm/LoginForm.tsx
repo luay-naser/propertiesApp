@@ -8,6 +8,7 @@ interface LoginFormProps {
 }
 export default function LoginForm({setShowForm, setIsUser , setSnackBarActive}:LoginFormProps) {
   const [user, setUser] = useState({ email: "", password: "" });
+  const isEmpty:boolean = user.email==""|| user.password=="";
 
   interface loginType {
     email: string;
@@ -22,19 +23,25 @@ export default function LoginForm({setShowForm, setIsUser , setSnackBarActive}:L
       const response = await loginAxios(loginForm);
       console.log(response);
       setSnackBarActive({ show: true, text: "تم تسجيل الدخول بنجاح" });
+      setShowForm(false);
       setTimeout(() => {
         setSnackBarActive({ show: false, text: "" });
-        setShowForm(false);
       }, 2000);
     } catch (error) {
       console.log(error);
     }
   }
   return (
-    <form className="flex flex-col gap-4">
+    <form className="flex flex-col gap-4"
+    onSubmit={(e) => {
+          loginHandle();
+          e.preventDefault();
+        }}>
       <input
         type="email"
         placeholder="البريد الإلكتروني"
+        required 
+                  pattern="^[^@\s]+@[^@\s]+\.[^@\s]+$"
         className="border border-gray-300 rounded-lg px-3 py-2 focus:outline-primary"
         onChange={(e) => {
           setUser({ ...user, email: e.target.value });
@@ -43,6 +50,8 @@ export default function LoginForm({setShowForm, setIsUser , setSnackBarActive}:L
       <input
         type="password"
         placeholder="كلمة المرور"
+        required 
+                  minLength={8}
         className="border border-gray-300 rounded-lg px-3 py-2 focus:outline-primary"
         onChange={(e) => {
           setUser({ ...user, password: e.target.value });
@@ -50,11 +59,9 @@ export default function LoginForm({setShowForm, setIsUser , setSnackBarActive}:L
       />
       <button
         type="submit"
-        className="bg-primary cursor-pointer text-white py-2 rounded-lg font-bold hover:bg-gray-900 transition duration-300"
-        onClick={(e) => {
-          loginHandle();
-          e.preventDefault();
-        }}
+        className={`  ${isEmpty? "cursor-not-allowed bg-gray-600":"cursor-pointer bg-primary hover:bg-gray-900"} text-white py-2 rounded-lg font-bold  transition duration-300 `}
+        disabled={isEmpty}
+        
       >
         تسجيل الدخول
       </button>

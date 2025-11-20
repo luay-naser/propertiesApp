@@ -9,23 +9,23 @@ setSnackBarActive:(value:{show:boolean; text:string})=>void;
 }
 export default function RegisterForm({setShowform, setIsUser , setSnackBarActive}:LoginFormProps){
       
-    
-      const [newUser, setNewUser] = useState({
-        first: "",
-        last: "",
-        city: "",
-        phone: "",
-        email: "",
-        password: "",
-      });
-      interface formType {
-          first_name: string;
-          last_name: string;
-          city: string;
-          phone: string;
-          email: string;
-          password: string;
-        }
+  const [newUser, setNewUser] = useState({
+    first: "",
+    last: "",
+    city: "",
+    phone: "",
+    email: "",
+    password: "",
+  });
+  interface formType {
+    first_name: string;
+    last_name: string;
+    city: string;
+    phone: string;
+    email: string;
+    password: string;
+  }
+  const isEmpty:boolean = newUser.first == ""|| newUser.last==""|| newUser.email==""|| newUser.city==""|| newUser.password==""|| newUser.phone=="" ;
         const userForm: formType = {
           first_name: newUser.first,
           last_name: newUser.last,
@@ -38,6 +38,11 @@ export default function RegisterForm({setShowform, setIsUser , setSnackBarActive
           try {
             const response = await registerAxios(userForm);
             console.log(response);
+            const user = response.data.user;
+            const token:string = response.data.token;
+            console.log(user)
+            localStorage.setItem("user", JSON.stringify(user))
+            localStorage.setItem("token", token)
             setSnackBarActive({ show: true, text: "لقد تم انشاء حسابك بنجاح " });
             setTimeout(() => {
               setSnackBarActive({ show: false, text: "" });
@@ -50,10 +55,16 @@ export default function RegisterForm({setShowform, setIsUser , setSnackBarActive
       
     return(
         <>
-        <form className="flex flex-col gap-4">
+        <form className="flex flex-col gap-4"
+        onSubmit={(e) => {
+                    userHandle();
+                    e.preventDefault();
+                  }}>
                 <input
                   type="text"
                   placeholder="الاسم الأول"
+                  required 
+                  minLength={3}
                   className="border border-gray-300 rounded-lg px-3 py-2 focus:outline-primary"
                   onChange={(e) => {
                     setNewUser({ ...newUser, first: e.target.value });
@@ -62,6 +73,8 @@ export default function RegisterForm({setShowform, setIsUser , setSnackBarActive
                 <input
                   type="text"
                   placeholder="اسم العائلة"
+                  required 
+                  minLength={3}
                   className="border border-gray-300 rounded-lg px-3 py-2 focus:outline-primary"
                   onChange={(e) => {
                     setNewUser({ ...newUser, last: e.target.value });
@@ -70,6 +83,8 @@ export default function RegisterForm({setShowform, setIsUser , setSnackBarActive
                 <input
                   type="text"
                   placeholder="المدينة "
+                  required 
+                  minLength={3}
                   className="border border-gray-300 rounded-lg px-3 py-2 focus:outline-primary"
                   onChange={(e) => {
                     setNewUser({ ...newUser, city: e.target.value });
@@ -78,6 +93,9 @@ export default function RegisterForm({setShowform, setIsUser , setSnackBarActive
                 <input
                   type="number"
                   placeholder="رقم الهاتف "
+                  minLength={8}
+                  pattern="^[0-9]{7,15}$"
+                  required 
                   className="border border-gray-300 rounded-lg px-3 py-2 focus:outline-primary"
                   onChange={(e) => {
                     setNewUser({ ...newUser, phone: e.target.value });
@@ -86,6 +104,8 @@ export default function RegisterForm({setShowform, setIsUser , setSnackBarActive
                 <input
                   type="email"
                   placeholder="البريد الإلكتروني"
+                  required 
+                  pattern="^[^@\s]+@[^@\s]+\.[^@\s]+$"
                   className="border border-gray-300 rounded-lg px-3 py-2 focus:outline-primary"
                   onChange={(e) => {
                     setNewUser({ ...newUser, email: e.target.value });
@@ -94,6 +114,8 @@ export default function RegisterForm({setShowform, setIsUser , setSnackBarActive
                 <input
                   type="password"
                   placeholder="كلمة المرور"
+                  required 
+                  minLength={8}
                   className="border border-gray-300 rounded-lg px-3 py-2 focus:outline-primary"
                   onChange={(e) => {
                     setNewUser({ ...newUser, password: e.target.value });
@@ -101,11 +123,9 @@ export default function RegisterForm({setShowform, setIsUser , setSnackBarActive
                 />
                 <button
                   type="submit"
-                  className="bg-primary cursor-pointer text-white py-2 rounded-lg font-bold hover:bg-gray-900 transition duration-300"
-                  onClick={(e) => {
-                    userHandle();
-                    e.preventDefault();
-                  }}
+                  className= {`  ${isEmpty? "cursor-not-allowed bg-gray-600":"cursor-pointer bg-primary hover:bg-gray-900"} text-white py-2 rounded-lg font-bold  transition duration-300 `}
+                  disabled={isEmpty}
+                  
                 >
                   انشاء حساب
                 </button>
