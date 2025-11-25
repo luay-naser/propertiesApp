@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 import SnackBar from "./SnackBar";
 
@@ -15,7 +15,25 @@ export default function Header() {
     show: false,
     text: "",
   });
+  interface UserT {
+    first: string;
+    last: string;
+    email: string;
+    city?: string;
+    phone?: string;
+  }
+  const [user, setUser] = useState<UserT | null>(null);
+  useEffect(()=>{
+    const userData = localStorage.getItem("user");
+    if (userData) {
+        setUser(JSON.parse(userData));
+      }
+    },[])
 
+
+
+// const userData: null | string = localStorage.getItem("user");
+// const user: User | null = userData ? (JSON.parse(userData) as User) : null;
   const [isUser, setIsUser] = useState(false);
 
   interface navItem {
@@ -62,7 +80,7 @@ export default function Header() {
               onClick={() => setShowForm(true)}
               className="bg-gray-900 px-4 py-2 rounded-lg text-white font-bold hover:bg-primary transition duration-300"
             >
-              حسابي
+            {user ? `${user.first_name}` : "حسابي"}
             </button>
           </ul>
 
