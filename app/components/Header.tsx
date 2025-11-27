@@ -16,7 +16,7 @@ export default function Header() {
     text: "",
   });
   interface UserT {
-    first: string;
+    first_name: string;
     last: string;
     email: string;
     city?: string;
@@ -79,8 +79,9 @@ export default function Header() {
             <button
               onClick={() => setShowForm(true)}
               className="bg-gray-900 px-4 py-2 rounded-lg text-white font-bold hover:bg-primary transition duration-300"
-            >
-            {user ? `${user.first_name}` : "حسابي"}
+              >
+                {/* حسابي */}
+              {user ? `${user.first_name}` : "حسابي"}
             </button>
           </ul>
 
