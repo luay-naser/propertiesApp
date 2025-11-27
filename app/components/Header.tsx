@@ -48,7 +48,7 @@ export default function Header() {
   ];
 
   const navList = list.map((inet: navItem) => (
-    <Link href={"#"} key={inet.name}>
+    <Link href={"#"} key={inet.name} >
       <li className="font-bold text-gray-900 transition duration-300 hover:text-primary">
         {inet.name}
       </li>
