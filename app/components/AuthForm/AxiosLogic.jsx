@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const ApiLink = "https://lola-uncompressible-kailee.ngrok-free.dev/users_api/";
+const ApiLink = "https://uninfectious-emilia-unmarshaled.ngrok-free.dev/users_api/";
 
 export function loginAxios(data) {
   return axios.post(
