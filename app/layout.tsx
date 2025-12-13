@@ -2,8 +2,7 @@ import type { Metadata } from "next";
 import { Cairo } from "next/font/google";
 import "./style.css";
 import "./globals.css";
-import Header from "./components/Header";
-import Footer from "./components/Footer";
+import ClientLayout from "./components/ClientLayout";
 
 const cairo = Cairo({
   weight: ["400", "700"],
@@ -18,16 +17,13 @@ export const metadata: Metadata = {
 
 export default function RootLayout({
   children,
-}: Readonly<{
+}: {
   children: React.ReactNode;
-}>) {
+}) {
   return (
     <html lang="ar" dir="rtl">
-      <body className={`${cairo.className} antialiased `}>
-        <Header />
-
-        {children}
-        <Footer />
+      <body className={`${cairo.className} antialiased`}>
+        <ClientLayout>{children}</ClientLayout>
       </body>
     </html>
   );
