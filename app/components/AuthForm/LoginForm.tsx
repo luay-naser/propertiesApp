@@ -6,7 +6,7 @@ interface LoginFormProps {
   setIsUser: (value: boolean) => void;
   setSnackBarActive:(value:{show:boolean; text:string})=>void;
 }
-export default function LoginForm({setShowForm, setIsUser , setSnackBarActive}:LoginFormProps) {
+export default function LoginForm({setShowForm, setIsUser , setSnackBarActive }:LoginFormProps) {
   const [user, setUser] = useState({ email: "", password: "" });
   const isEmpty:boolean = user.email==""|| user.password=="";
 
@@ -22,11 +22,17 @@ export default function LoginForm({setShowForm, setIsUser , setSnackBarActive}:L
     try {
       const response = await loginAxios(loginForm);
       console.log(response);
+      const user = response.data.user;
+            const token:string = response.data.token;
+            console.log(user)
+            localStorage.setItem("user", JSON.stringify(user))
+            localStorage.setItem("token", token)
       setSnackBarActive({ show: true, text: "تم تسجيل الدخول بنجاح" });
       setShowForm(false);
       setTimeout(() => {
         setSnackBarActive({ show: false, text: "" });
       }, 2000);
+      
     } catch (error) {
       console.log(error);
     }
@@ -36,6 +42,7 @@ export default function LoginForm({setShowForm, setIsUser , setSnackBarActive}:L
     onSubmit={(e) => {
           loginHandle();
           e.preventDefault();
+          window.location.reload();
         }}>
       <input
         type="email"

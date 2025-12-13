@@ -7,10 +7,13 @@ import SnackBar from "./SnackBar";
 
 import LoginForm from "./AuthForm/LoginForm";
 import RegisterForm from "./AuthForm/RegisterForm";
+import Profail from "./Profail";
 
 export default function Header() {
   const [isActive, setIsActive] = useState(false);
+  const [profailShow, setProfailShow] = useState<boolean>(false);
   const [showForm, setShowForm] = useState(false);
+  // const [name, setName] = useState("حسابي");
   const [snackBarActive, setSnackBarActive] = useState({
     show: false,
     text: "",
@@ -23,17 +26,16 @@ export default function Header() {
     phone?: string;
   }
   const [user, setUser] = useState<UserT | null>(null);
-  useEffect(()=>{
+  useEffect(() => {
     const userData = localStorage.getItem("user");
     if (userData) {
-        setUser(JSON.parse(userData));
-      }
-    },[])
+      setUser(JSON.parse(userData));
+      setProfailShow(true);
+    }
+  }, []);
 
-
-
-// const userData: null | string = localStorage.getItem("user");
-// const user: User | null = userData ? (JSON.parse(userData) as User) : null;
+  // const userData: null | string = localStorage.getItem("user");
+  // const user: User | null = userData ? (JSON.parse(userData) as User) : null;
   const [isUser, setIsUser] = useState(false);
 
   interface navItem {
@@ -48,7 +50,7 @@ export default function Header() {
   ];
 
   const navList = list.map((inet: navItem) => (
-    <Link href={"#"} key={inet.name} >
+    <Link href={"#"} key={inet.name}>
       <li className="font-bold text-gray-900 transition duration-300 hover:text-primary">
         {inet.name}
       </li>
@@ -79,9 +81,9 @@ export default function Header() {
             <button
               onClick={() => setShowForm(true)}
               className="bg-gray-900 px-4 py-2 rounded-lg text-white font-bold hover:bg-primary transition duration-300"
-              >
-                {/* حسابي */}
-              {user ? `${user.first_name}` : "حسابي"}
+            >
+              {/* حسابي */}
+              {user ? `${user.first_name} ` : "حسابي"}
             </button>
           </ul>
 
@@ -127,28 +129,34 @@ export default function Header() {
             >
               &times;
             </button>
-            <h2 className="text-2xl font-bold text-center mb-4 text-primary">
-              إنشاء حساب / تسجيل دخول
-            </h2>
+            {profailShow?<Profail/>:
+          <div>
+              <h2 className="text-2xl font-bold text-center mb-4 text-primary">
+                إنشاء حساب / تسجيل دخول
+              </h2>
 
-            {/* login form */}
-            {!isUser && (
-              <LoginForm
-                setShowForm={setShowForm}
-                setIsUser={setIsUser}
-                setSnackBarActive={setSnackBarActive}
-              />
-            )}
-            {/* login form */}
-            {/* register form */}
-            {isUser && (
-              <RegisterForm
-                setShowform={setShowForm}
-                setIsUser={setIsUser}
-                setSnackBarActive={setSnackBarActive}
-              />
-            )}
-            {/* register form */}
+              {/* login form */}
+              {!isUser && (
+                <div>
+                  <LoginForm
+                    setShowForm={setShowForm}
+                    setIsUser={setIsUser}
+                    setSnackBarActive={setSnackBarActive}
+                  />
+                </div>
+              )}
+              {/* login form */}
+              {/* register form */}
+              {isUser && (
+                <RegisterForm
+                  setShowform={setShowForm}
+                  setIsUser={setIsUser}
+                  setSnackBarActive={setSnackBarActive}
+                />
+              )}
+              {/* register form */}
+            </div>}
+            
           </div>
         </div>
       )}

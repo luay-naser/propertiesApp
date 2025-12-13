@@ -5,6 +5,7 @@ export default function Hero() {
       <Image
         src="/siteImages/heroImage.jpg"
         alt="hero image"
+        priority
         fill
         className="object-cover -z-10 "
       />

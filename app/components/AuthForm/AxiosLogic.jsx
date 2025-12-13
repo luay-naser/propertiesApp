@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const ApiLink = "https://lola-uncompressible-kailee.ngrok-free.dev/users_api/";
+const ApiLink = "https://uninfectious-emilia-unmarshaled.ngrok-free.dev//users_api/";
 
 export function loginAxios(data) {
   return axios.post(
@@ -24,4 +24,15 @@ export function registerAxios(data) {
         },
       }
   );
+}
+export function singOutAxios(data){
+return axios.post(
+  ApiLink+ "logout.php" ,
+    data ,
+    {
+      headers: {
+        "Content-Type": "application/json",
+      },
+    }
+);
 }
