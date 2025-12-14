@@ -31,10 +31,15 @@ export default function LoginForm({setShowForm, setIsUser , setSnackBarActive }:
       setShowForm(false);
       setTimeout(() => {
         setSnackBarActive({ show: false, text: "" });
+        window.location.reload();
       }, 2000);
       
     } catch (error) {
       console.log(error);
+      setSnackBarActive({ show: true, text: "الايميل أو كلمة المرور خاطئة" });
+      setTimeout(() => {
+        setSnackBarActive({ show: false, text: "" });
+      }, 2000);
     }
   }
   return (
@@ -42,7 +47,7 @@ export default function LoginForm({setShowForm, setIsUser , setSnackBarActive }:
     onSubmit={(e) => {
           loginHandle();
           e.preventDefault();
-          window.location.reload();
+          
         }}>
       <input
         type="email"

@@ -60,6 +60,10 @@ export default function RegisterForm({
       window.location.reload();
     } catch (error) {
       console.log(error);
+      setSnackBarActive({ show: true, text: "الايميل الذي ادخلته مستخدم" });
+      setTimeout(() => {
+        setSnackBarActive({ show: false, text: "" });
+      }, 2000);
     }
   }
 
