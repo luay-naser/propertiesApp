@@ -1,6 +1,7 @@
 "use client";
 import { useEffect, useState } from "react"
 import { singOutAxios } from "./AuthForm/AxiosLogic";
+import AlertDialog from "./AlertDialog";
 interface userType{
     id:number;
     first_name:string;
@@ -12,6 +13,7 @@ interface userType{
 
 
 export default function Profail(){
+  const [open, setOpen] = useState(false);
     const [userInfo, setUserInfo] = useState<userType | null>(null);
     useEffect(() => {
       const data = localStorage.getItem("user");
@@ -31,6 +33,8 @@ export default function Profail(){
           <p className="font-bold">المدينة: <span className="text-gray-700 mr-2">{userInfo?.city}</span></p>
           <p className="font-bold">الهاتف: <span className="text-gray-700 mr-2">{userInfo?.phone}</span></p>
         </div>
+        <div className="flex gap-4 justify-center">
+
         <button
         type="submit"
         className="cursor-pointer bg-primary hover:bg-gray-900 text-white py-2 px-4 rounded-lg font-bold  transition duration-300"
@@ -47,6 +51,16 @@ export default function Profail(){
             console.log(error);
           }
         }}>تسجيل الخروج</button>
+        
+        <button
+        className="bg-red-800 text-white px-4 py-2 rounded-lg"
+        onClick={() => setOpen(true)}
+      >
+        حذف الحساب
+      </button>
+
+      <AlertDialog open={open} setOpen={setOpen} />
+        </div>
         </section>
         
         </>

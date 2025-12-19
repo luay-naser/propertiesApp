@@ -26,13 +26,21 @@ export default function Header() {
     phone?: string;
   }
   const [user, setUser] = useState<UserT | null>(null);
-  useEffect(() => {
-    const userData = localStorage.getItem("user");
-    if (userData) {
-      setUser(JSON.parse(userData));
-      setProfailShow(true);
-    }
-  }, []);
+useEffect(() => {
+  const userData = localStorage.getItem("user");
+
+  if (!userData || userData === "undefined") return;
+
+  try {
+    const parsedUser = JSON.parse(userData);
+    setUser(parsedUser);
+    setProfailShow(true);
+  } catch (error) {
+    console.error("Invalid user data in localStorage");
+    localStorage.removeItem("user");
+  }
+}, []);
+
 
   // const userData: null | string = localStorage.getItem("user");
   // const user: User | null = userData ? (JSON.parse(userData) as User) : null;
@@ -122,7 +130,7 @@ export default function Header() {
       {/* فورم إنشاء حساب / تسجيل دخول */}
       {showForm && (
         <div className="fixed inset-0 bg-black/50 flex justify-center items-center z-50">
-          <div className="bg-white rounded-2xl p-8 w-[90%] max-w-md relative shadow-lg">
+          <div className="bg-white rounded-2xl p-8   relative shadow-lg border">
             <button
               onClick={() => setShowForm(false)}
               className="absolute top-3 right-4 text-2xl text-gray-600 hover:text-red-500"

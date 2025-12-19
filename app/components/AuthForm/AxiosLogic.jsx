@@ -37,3 +37,14 @@ export function singOutAxios(data) {
     }
   );
 }
+export function deleteAxios(data) {
+  return axios.post(
+    ApiLink + "delete_user.php",
+    data,
+    {
+      headers: {
+        "Content-Type": "application/json",
+      },
+    }
+  );
+}
