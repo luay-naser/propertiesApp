@@ -1,5 +1,5 @@
 import Hero from "./components/home/Hero";
-import Properties from "./components/home/Properties";
+import Properties from "./components/home/PreProperties";
 
 
 

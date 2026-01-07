@@ -1,5 +1,5 @@
 "use client";
-
+import { useAuthStore } from "../store/authStore";
 import Link from "next/link";
 import { useState, useEffect } from "react";
 
@@ -10,36 +10,37 @@ import RegisterForm from "./AuthForm/RegisterForm";
 import Profail from "./Profail";
 
 export default function Header() {
+  const user = useAuthStore((state)=>state.userData)
+  const loadUser = useAuthStore((state)=>state.loadUser)
   const [isActive, setIsActive] = useState(false);
-  const [profailShow, setProfailShow] = useState<boolean>(false);
+  // const [profailShow, setProfailShow] = useState<boolean>(false);
   const [showForm, setShowForm] = useState(false);
-  // const [name, setName] = useState("حسابي");
   const [snackBarActive, setSnackBarActive] = useState({
     show: false,
     text: "",
   });
-  interface UserT {
-    first_name: string;
-    last: string;
-    email: string;
-    city?: string;
-    phone?: string;
-  }
-  const [user, setUser] = useState<UserT | null>(null);
+  // interface UserT {
+  //   first_name: string;
+  //   last: string;
+  //   email: string;
+  //   city?: string;
+  //   phone?: string;
+  // }
+  // const [user, setUser] = useState<UserT | null>(null);
 useEffect(() => {
-  const userData = localStorage.getItem("user");
+  // const userData = localStorage.getItem("user");
+  loadUser();
+  // if (!userData || userData === "undefined") return;
 
-  if (!userData || userData === "undefined") return;
-
-  try {
-    const parsedUser = JSON.parse(userData);
-    setUser(parsedUser);
-    setProfailShow(true);
-  } catch (error) {
-    console.error("Invalid user data in localStorage");
-    localStorage.removeItem("user");
-  }
-}, []);
+  // try {
+  //   const parsedUser = JSON.parse(userData);
+  //   setUser(parsedUser);
+  //   setProfailShow(true);
+  // } catch (error) {
+  //   console.error("Invalid user data in localStorage");
+  //   localStorage.removeItem("user");
+  // }
+}, [loadUser]);
 
 
   // const userData: null | string = localStorage.getItem("user");
@@ -48,17 +49,18 @@ useEffect(() => {
 
   interface navItem {
     name: string;
+    href?:string;
   }
 
   const list: navItem[] = [
-    { name: "الرئيسية" },
-    { name: "العقارات" },
-    { name: "من نحن" },
-    { name: "اتصل بنا" },
+    { name: "الرئيسية",href:"/" },
+    { name: "العقارات",href:"/properties" },
+    { name: "من نحن",href:"/about" },
+    { name: "اتصل بنا",href:"/contact" },
   ];
 
   const navList = list.map((inet: navItem) => (
-    <Link href={"#"} key={inet.name}>
+    <Link href={inet.href || "#"} key={inet.name}>
       <li className="font-bold text-gray-900 transition duration-300 hover:text-primary">
         {inet.name}
       </li>
@@ -137,7 +139,7 @@ useEffect(() => {
             >
               &times;
             </button>
-            {profailShow?<Profail/>:
+            {user?<Profail/>:
           <div>
               <h2 className="text-2xl font-bold text-center mb-4 text-primary">
                 إنشاء حساب / تسجيل دخول

@@ -1,6 +1,7 @@
 "use client";
 import { loginAxios } from "./AxiosLogic";
 import { useState } from "react";
+import { useAuthStore } from "@/app/store/authStore";
 interface LoginFormProps {
   setShowForm: (value: boolean) => void;
   setIsUser: (value: boolean) => void;
@@ -9,7 +10,7 @@ interface LoginFormProps {
 export default function LoginForm({setShowForm, setIsUser , setSnackBarActive }:LoginFormProps) {
   const [user, setUser] = useState({ email: "", password: "" });
   const isEmpty:boolean = user.email==""|| user.password=="";
-
+  const setUserData= useAuthStore((state)=>state.setUserData)
   interface loginType {
     email: string;
     password: string;
@@ -24,14 +25,15 @@ export default function LoginForm({setShowForm, setIsUser , setSnackBarActive }:
       console.log(response);
       const user = response.data.user;
             const token:string = response.data.token;
+            setUserData(user)
             console.log(user)
-            localStorage.setItem("user", JSON.stringify(user))
+            // localStorage.setItem("user", JSON.stringify(user))
             localStorage.setItem("token", token)
       setSnackBarActive({ show: true, text: "تم تسجيل الدخول بنجاح" });
       setShowForm(false);
       setTimeout(() => {
         setSnackBarActive({ show: false, text: "" });
-        window.location.reload();
+        // window.location.reload();
       }, 2000);
       
     } catch (error) {

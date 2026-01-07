@@ -1,6 +1,6 @@
-import Card from "./Card";
+// import Card from "./Card";
 
-export default function Properties() {
+export default function PreProperties() {
   return (
     <section className="px-container py-20">
       <div className="flex justify-between items-center mb-12">
@@ -14,9 +14,9 @@ export default function Properties() {
       </div>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
 
+      {/* <Card/>
       <Card/>
-      <Card/>
-      <Card/>
+      <Card/> */}
       </div>
     </section>
   );

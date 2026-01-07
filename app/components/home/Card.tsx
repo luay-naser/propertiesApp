@@ -1,14 +1,25 @@
 "use client"
 import Image from "next/image";
 import { useState } from "react";
-export default function Card() {
+interface cardProps{
+  id:string;
+  name:string;
+  imageUrl:string;
+  address:string;
+  price:string;
+  rooms:string;
+  baths:string;
+  area:string;
+
+}
+export default function Card({ id, name, imageUrl, address, price, rooms, baths, area }:cardProps) {
     const [isFavorite, setIsFavorite] = useState(false);
   return (
     <article className="border border-gray-300  rounded-2xl  shadow-md hover:shadow-lg cursor-pointer">
       <div className="relative w-full h-60 overflow-hidden rounded-t-2xl">
         <Image
           className=" hover:scale-110 transition-all duration-300 object-cover"
-          src="/siteImages/villa1.jpg"
+          src={imageUrl}
            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
           fill
           alt="propert"
@@ -22,25 +33,25 @@ export default function Card() {
           فيلا
         </span>
       </div>
-      <h2 className="mt-6 pr-5 font-bold text-xl">فيلا شاطئية فاخرة</h2>
+      <h2 className="mt-6 pr-5 font-bold text-xl">  {name}</h2>
       <div className="text-gray-500 pr-5 mt-2 flex gap-1 items-center">
         <span className="icon-location" />
-        الرياض
+        {address}
       </div>
       <div className=" px-5 pt-4 ">
         <div className="flex gap-4 pb-4 border-b border-b-gray-300">
           <div className="flex gap-1 items-center text-gray-500">
-            <span className="icon-bed"></span>3
+            <span className="icon-bed"></span>{rooms}
           </div>
           <div className="flex gap-1 items-center text-gray-500">
-            <span className="icon-bath"></span>2
+            <span className="icon-bath"></span>{baths}
           </div>
           <div className="flex gap-1 items-center text-gray-500">
-            <span className="icon-square"></span>2200 متر مربع
+            <span className="icon-square"></span>{area} متر مربع
           </div>
         </div>
       </div>
-      <p className="text-primary font-bold text-3xl pr-4 py-4">$450,000</p>
+      <p className="text-primary font-bold text-3xl pr-4 py-4">${price}</p>
     </article>
   );
 }
