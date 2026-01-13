@@ -10,9 +10,10 @@ interface cardProps{
   rooms:string;
   baths:string;
   area:string;
+  propType:string;
 
 }
-export default function Card({ id, name, imageUrl, address, price, rooms, baths, area }:cardProps) {
+export default function Card({ id, name, imageUrl, address, price, rooms, baths, area, propType }:cardProps) {
     const [isFavorite, setIsFavorite] = useState(false);
   return (
     <article className="border border-gray-300  rounded-2xl  shadow-md hover:shadow-lg cursor-pointer">
@@ -30,7 +31,7 @@ export default function Card({ id, name, imageUrl, address, price, rooms, baths,
           <span className={`${isFavorite?"icon-heart text-red-600":"icon-heart-outlined"} text-xl`} />
         </div>
         <span className="bg-gray-200/90 px-3 py-1/2 rounded-lg absolute right-4 bottom-4">
-          فيلا
+          {propType}
         </span>
       </div>
       <h2 className="mt-6 pr-5 font-bold text-xl">  {name}</h2>

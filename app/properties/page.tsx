@@ -19,6 +19,7 @@ export default function Properties() {
         setProperties(response.data.data);
       });
   }, []);
+  console.log(properties)
   return (
     <section className="px-container py-20">
       <div className="flex justify-between items-center mb-12 mt-4">
@@ -42,6 +43,7 @@ export default function Properties() {
             rooms={property.rooms}
             baths={property.bathrooms}
             area={property.area}
+            propType={property.property_type}
           />
         ))}
       </div>
