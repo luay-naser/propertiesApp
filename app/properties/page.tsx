@@ -6,8 +6,7 @@ import Card from "../components/home/Card";
 export default function Properties() {
   const [properties, setProperties] = useState<any[]>([]);
   useEffect(() => {
-    axios
-      .get(
+    axios.get(
         "https://uninfectious-emilia-unmarshaled.ngrok-free.dev/project/real_estate/propreties.php",
         {
           headers: {
