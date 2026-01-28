@@ -1,6 +1,56 @@
-// import Card from "./Card";
+import Link from "next/link";
+import Card from "./Card";
 
-export default function PreProperties() {
+import axios from "axios";
+
+export default async function PreProperties() {
+  const property = await axios.get(
+    "https://uninfectious-emilia-unmarshaled.ngrok-free.dev/project/real_estate/propreties.php",
+    {
+      headers: {
+        "ngrok-skip-browser-warning": "true",
+      },
+    }
+  );
+  interface PropertyType {
+    address:string;
+    area:string;
+    bathrooms:string;
+    build_year:string;
+    description:string;
+    id:string;
+    is_featured:string;
+    main_image:string;
+    name:string;
+    price:string;
+    property_type:string;
+    rooms:string;
+
+  }
+  const properties = property.data.data;
+  const preProperties = properties.filter((property: PropertyType) => property.is_featured === "1");
+  const propertyMap = preProperties.map((p:PropertyType)=>{
+ 
+    console.log(typeof p);
+   return (<Link href={`/properties/${p.id}`} key={p.id}>
+
+          <Card
+            
+            id={p.id}
+            name={p.name}
+            imageUrl={p.main_image}
+            address={p.address}
+            price={p.price}
+            rooms={p.rooms}
+            baths={p.bathrooms}
+            area={p.area}
+            propType={p.property_type}
+          />
+          </Link>
+   )
+  })
+
+  console.log(properties);
   return (
     <section className="px-container py-20">
       <div className="flex justify-between items-center mb-12">
@@ -13,7 +63,7 @@ export default function PreProperties() {
         </button>
       </div>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-
+      {propertyMap}
       {/* <Card/>
       <Card/>
       <Card/> */}

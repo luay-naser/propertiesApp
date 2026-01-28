@@ -21,6 +21,20 @@ export default async function PropertyPage({
 
   const property = res.data.data;
   console.log(property);
+  console.log( property.images);
+  // const imagesArray =  JSON.parse(property.images);
+  const images = property.images.map((image:string)=>{
+    return (
+      <Image key={image}
+          src={image}
+          alt="House"
+          width={600}
+          height={400}
+          className="w-full md:w-1/2 h-auto object-cover rounded-xl"
+          priority
+        />
+    )
+  })
   
   return (
     <section className="px-container py-24">
@@ -37,7 +51,8 @@ export default async function PropertyPage({
 
       {/* الصور الثانوية */}
       <div className="py-4 flex flex-col md:flex-row gap-4 w-full">
-        <Image
+        {images}
+        {/* <Image
           src={property.images[0]}
           alt="House"
           width={600}
@@ -53,7 +68,7 @@ export default async function PropertyPage({
           height={400}
           className="w-full md:w-1/2 h-auto object-cover rounded-xl"
           priority
-        />
+        /> */}
       </div>
       <div className="py-10">
         <h1 className="font-black text-3xl mb-5 "> {property.name} </h1>
