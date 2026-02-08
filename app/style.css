@@ -84,6 +84,7 @@
 }
 .icon-bed:before {
   content: "\f236";
+  color: rgb(71, 71, 233);
 }
 .icon-hotel:before {
   content: "\f236";

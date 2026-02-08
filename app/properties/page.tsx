@@ -33,10 +33,10 @@ export default function Properties() {
       <Card/>
       <Card/> */}
         {properties.map((property) => (
-          <Link href={`/properties/${property.id}`} key={property.id}>
+          
 
           <Card
-            
+            key={property.id}
             id={property.id}
             name={property.name}
             imageUrl={property.main_image}
@@ -47,7 +47,7 @@ export default function Properties() {
             area={property.area}
             propType={property.property_type}
           />
-          </Link>
+         
         ))}
       </div>
     </section>

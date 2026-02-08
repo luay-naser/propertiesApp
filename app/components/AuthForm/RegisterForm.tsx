@@ -46,10 +46,8 @@ export default function RegisterForm({
   async function userHandle() {
     try {
       const response = await registerAxios(userForm);
-      console.log(response);
       const user = response.data.user;
       const token: string = response.data.token;
-      console.log(user);
       localStorage.setItem("user", JSON.stringify(user));
       localStorage.setItem("token", token);
       setSnackBarActive({ show: true, text: "لقد تم انشاء حسابك بنجاح " });
@@ -57,7 +55,14 @@ export default function RegisterForm({
         setSnackBarActive({ show: false, text: "" });
       }, 2000);
       setShowform(false);
-      window.location.reload();
+      console.log("===================")
+      console.log("Registration successful:");
+      console.log(response);
+      console.log("Registered user:");
+      console.log(user);
+      console.log("===================")
+    
+      // window.location.reload();
     } catch (error) {
       console.log(error);
       setSnackBarActive({ show: true, text: "الايميل الذي ادخلته مستخدم" });

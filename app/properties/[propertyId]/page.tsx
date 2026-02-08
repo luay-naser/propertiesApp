@@ -25,14 +25,16 @@ export default async function PropertyPage({
   // const imagesArray =  JSON.parse(property.images);
   const images = property.images.map((image:string)=>{
     return (
-      <Image key={image}
-          src={image}
-          alt="House"
-          width={600}
-          height={400}
-          className="w-full md:w-1/2 h-auto object-cover rounded-xl"
-          priority
-        />
+      <div key={image} className="relative min-w-[220px] h-[160px] rounded-xl overflow-hidden">
+
+        <Image 
+            src={image}
+            alt="House"
+            fill
+            className=" object-cover rounded-xl"
+            priority
+          />
+      </div>
     )
   })
   
@@ -50,7 +52,7 @@ export default async function PropertyPage({
       </div>
 
       {/* الصور الثانوية */}
-      <div className="py-4 flex flex-col md:flex-row gap-4 w-full">
+      <div className="py-4 overflow-x-auto flex-nowrap flex gap-4  ">
         {images}
         {/* <Image
           src={property.images[0]}
