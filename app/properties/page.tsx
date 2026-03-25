@@ -8,7 +8,7 @@ export default function Properties() {
   const [properties, setProperties] = useState<any[]>([]);
   useEffect(() => {
     axios.get(
-        "https://uninfectious-emilia-unmarshaled.ngrok-free.dev/project/real_estate/propreties.php",
+        "/api/propereties",
         {
           headers: {
             "ngrok-skip-browser-warning": "true",

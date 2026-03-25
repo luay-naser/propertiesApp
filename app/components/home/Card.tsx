@@ -29,10 +29,19 @@ export default  function  Card({ id, name, imageUrl, address, price, rooms, bath
     try {
       setLoading(true);
       const token = localStorage.getItem("token");
+      const userId:string|null = localStorage.getItem("user")
+      let  userId2={id:""};
+      if(userId){
 
-      await axios.post(
+         userId2= JSON.parse(userId)
+      }else{
+        alert("يرجى تسجيل الدخول لإضافة عقار للمفضلة")
+        return
+      }
+      const res = await axios.post(
         "https://uninfectious-emilia-unmarshaled.ngrok-free.dev/project/real_estate/favorite_toggle.php",
-        { property_id: id },
+        { property_id: id,
+          user_id: userId2.id },
         {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -42,6 +51,7 @@ export default  function  Card({ id, name, imageUrl, address, price, rooms, bath
       );
 
       setIsFavorite(!isFavorite);
+      console.log(res.data);
     } catch (error) {
       console.error(error);
       alert("فشل تحديث المفضلة");
