@@ -27,7 +27,7 @@ export default async function PreProperties() {
   try{
 
     const property = await axios.get(
-      "https://uninfectious-emilia-unmarshaled.ngrok-free.dev/project/real_estate/propreties.php",
+      "http://localhost:3000/api/propereties",
       {
         headers: {
           "ngrok-skip-browser-warning": "true",
