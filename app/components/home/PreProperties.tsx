@@ -5,6 +5,7 @@
 import Link from "next/link";
 import Card from "./Card";
 import axios from "axios";
+import { headers } from "next/headers";
 
 export default async function PreProperties() {
     interface PropertyType {
@@ -23,18 +24,20 @@ export default async function PreProperties() {
 
   }
   let properties: PropertyType[]  = [];
+
   console.log(typeof properties);
   try{
+ const baseUrl =
+  process.env.VERCEL_URL
+    ? `https://${process.env.VERCEL_URL}`
+    : "http://localhost:3000";
 
-    const property = await axios.get(
-      "http://localhost:3000/api/propereties",
-      {
-        headers: {
-          "ngrok-skip-browser-warning": "true",
-        },
-      }
-    )
-    properties = property.data.data ;
+const res = await fetch(`${baseUrl}/api/propereties`, {
+  cache: "no-store",
+});
+
+const data = await res.json();
+    properties = data.data ;
   }
   catch(error){
     console.error("API Error:", error);

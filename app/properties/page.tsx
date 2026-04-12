@@ -85,7 +85,7 @@ export default function Properties() {
   const [properties, setProperties] = useState<any[]>([]);
   useEffect(() => {
     axios.get(
-        "http://localhost:3000/api/propereties",
+        "/api/propereties",
         {
           headers: {
             "ngrok-skip-browser-warning": "true",
