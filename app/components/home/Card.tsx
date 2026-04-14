@@ -103,7 +103,7 @@ export default  function  Card({ id, name, imageUrl, address, price, rooms, bath
       <div className=" px-5 pt-4 ">
         <div className="flex gap-4 pb-4 border-b border-b-gray-300">
           <div className="flex gap-1 items-center text-gray-500">
-            <span className="icon-bed"></span>{rooms}
+            <span className="icon-bed "></span>{rooms}
           </div>
           <div className="flex gap-1 items-center text-gray-500">
             <span className="icon-bath"></span>{baths}

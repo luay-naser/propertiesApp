@@ -83,7 +83,7 @@ useEffect(() => {
           {/* القائمة في الشاشات الكبيرة */}
           <ul className="hidden sm:flex items-center gap-7">
             {navList}
-            <Link href={"#"}>
+            <Link href={"favorites"}>
               <li className="bg-primary px-4 py-2 rounded-lg text-white font-bold hover:text-primary transition duration-300 hover:bg-white hover:outline">
                 المفضلة
               </li>
@@ -114,7 +114,7 @@ useEffect(() => {
         >
           <ul className="flex flex-col gap-4 border-b border-gray-300 px-4 py-2">
             {navList}
-            <Link href={"#"}>
+            <Link href={"/favorites"}>
               <li className="text-center bg-primary px-4 py-2 rounded-lg text-white font-bold hover:text-primary transition duration-300 hover:bg-white hover:outline">
                 المفضلة
               </li>
